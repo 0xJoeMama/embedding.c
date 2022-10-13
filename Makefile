@@ -1,17 +1,22 @@
 CC=clang
-EMBEDS=cat_pic.o
 CFLAGS=-Wall -Werror -O3 -pedantic
 NAME=embed-test
 LD=ld
-OBJ=main.o
+SRC=$(wildcard *.c)
+OBJ=$(patsubst %.c,%.o,$(SRC))
+EMBEDS=cat_pic.o
 
 all: $(NAME)
+	@echo "Compilation done"
 
 $(NAME): $(OBJ) $(EMBEDS)
-	$(CC) $^ -o $(NAME)
+	@echo "Linking binary" $@
+	@$(CC) $^ -o $(NAME)
 
 %.o: %.jpg
-	$(LD) -r -b binary $< -o $@
+	@echo "Preparing" $< "for embedding"
+	@$(LD) -r -b binary $< -o $@
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) -o $@ $<
+	@echo "Compiling" $< "into" $@
+	@$(CC) -c $(CFLAGS) -o $@ $<
