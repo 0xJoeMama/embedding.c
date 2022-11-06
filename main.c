@@ -22,7 +22,7 @@ int main(void) {
     .size = &_binary_cat_pic_jpg_end - &_binary_cat_pic_jpg_start
   };
 
-  FILE* fd = fopen("./new_file.jpg", "w+");
+  FILE* fd = fopen("./new_file.jpg", "w+b");
 
   if (fd == NULL) {
     fprintf(stderr, "Error: %s", strerror(errno));
